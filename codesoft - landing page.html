@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GlamAura Makeup Marketplace</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #000;
+            background-color: #f4e1f4;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #ff69b4;
+            padding: 10px 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #fff;
+        }
+        .nav {
+            display: flex;
+            gap: 20px;
+        }
+        .nav a {
+            text-decoration: none;
+            color: #fff;
+            font-size: 16px;
+        }
+        .nav a:hover {
+            color: #f4e1f4;
+        }
+        .search-bar {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        .search-bar input {
+            padding: 5px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+        }
+        .cart-icon {
+            position: relative;
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+        }
+        .cart-icon img {
+            width: 100%;
+            height: 100%;
+        }
+        .badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background-color: #333;
+            color: white;
+            border-radius: 50%;
+            padding: 2px 6px;
+            font-size: 12px;
+        }
+        .hero {
+            position: relative;
+            text-align: center;
+            color: #fff;
+            background-color: #dcb7f2;
+            padding: 100px 20px;
+        }
+        .hero img {
+            width: 100%;
+            height: auto;
+            opacity: 0.5;
+        }
+        .hero-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+        }
+        .hero h1 {
+            font-size: 48px;
+            margin: 0;
+        }
+        .hero p {
+            font-size: 24px;
+        }
+        .cta-button {
+            margin-top: 20px;
+            text-decoration: none;
+            padding: 10px 20px;
+            background-color: #ff69b4;
+            color: white;
+            border-radius: 5px;
+            font-size: 18px;
+        }
+        .cta-button:hover {
+            background-color: #333;
+        }
+        .section {
+            padding: 40px 20px;
+        }
+        .featured-products .product-carousel {
+            display: flex;
+            overflow-x: auto;
+            gap: 20px;
+            justify-content: center;
+        }
+        .product {
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 10px;
+            min-width: 200px;
+            text-align: center;
+            background-color: #fff;
+        }
+        .product img {
+            width: 100%;
+            height: auto;
+        }
+        .product h3 {
+            font-size: 18px;
+            margin: 10px 0;
+            color: #333;
+        }
+        .product p {
+            font-size: 16px;
+            color: #ff69b4;
+        }
+        .product button {
+            background-color: #ff69b4;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .product button:hover {
+            background-color: #333;
+        }
+        .categories .category-grid {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .category {
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            width: 200px;
+            text-align: center;
+            padding: 20px;
+            background-color: #fff;
+        }
+        .category img {
+            width: 100%;
+            height: auto;
+        }
+        .category h3 {
+            font-size: 18px;
+            margin: 10px 0;
+            color: #333;
+        }
+        .testimonial {
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            background-color: #fff;
+            color: #333;
+        }
+        .testimonial img {
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+        }
+        .testimonial p {
+            color: #333;
+        }
+        .about p {
+            color: #333;
+        }
+        .blog-post {
+            display: flex;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .blog-post img {
+            width: 150px;
+            height: 150px;
+            margin-right: 20px;
+        }
+        .blog-post h3 {
+            font-size: 18px;
+            margin: 0 0 10px 0;
+            color: #333;
+        }
+        .blog-post p {
+            color: #333;
+        }
+        .subscription p {
+            color: #333;
+        }
+        .footer {
+            padding: 20px;
+            background-color: #333;
+            color: white;
+            text-align: center;
+        }
+        .footer a {
+            color: white;
+            text-decoration: none;
+        }
+        .footer a:hover {
+            text-decoration: underline;
+        }
+        .footer .social-icons img {
+            width: 24px;
+            height: 24px;
+            margin: 0 10px;
+        }
+        .header-navigation {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            background-color: #ff69b4;
+            padding: 10px 0;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        .header-navigation a {
+            text-decoration: none;
+            color: #fff;
+            font-size: 14px;
+        }
+        .header-navigation a:hover {
+            color: #f4e1f4;
+        }
+        .shop-by-collection {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+        .shop-by-collection .collection {
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            width: 150px;
+            text-align: center;
+            padding: 10px;
+            background-color: #fff;
+        }
+        .shop-by-collection .collection img {
+            width: 100%;
+            height: auto;
+        }
+        .shop-by-collection .collection h3 {
+            font-size: 16px;
+            margin: 10px 0;
+            color: #333;
+        }
+        .all-products {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+        .all-products .product {
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 10px;
+            width: 200px;
+            text-align: center;
+            background-color: #fff;
+        }
+        .all-products .product img {
+            width: 100%;
+            height: auto;
+        }
+        .all-products .product h3 {
+            font-size: 18px;
+            margin: 10px 0;
+            color: #333;
+        }
+        .all-products .product p {
+            font-size: 16px;
+            color: #ff69b4;
+        }
+        .all-products .product button {
+            background-color: #ff69b4;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .all-products .product button:hover {
+            background-color: #333;
+        }
+        /* Chatbot Styles */
+        .chatbot {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background-color: #ff69b4;
+            border-radius: 50%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+        .chatbot img {
+            width: 80%;
+            height: 80%;
+        }
+        .chatbot-popup {
+            position: fixed;
+            bottom: 20px;
+            right: 90px;
+            width: 300px;
+            max-height: 70vh;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        .chatbot-header {
+            background-color: #ff69b4;
+            color: #fff;
+            padding: 10px;
+            font-weight: bold;
+            text-align: center;
+        }
+        .chatbot-body {
+            flex: 1;
+            padding: 10px;
+            overflow-y: auto;
+        }
+        .chatbot-footer {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+        }
+        .chatbot-footer input[type="text"] {
+            flex: 1;
+            padding: 8px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            outline: none;
+        }
+        .chatbot-footer input[type="text"]:focus {
+            border-color: #ff69b4;
+        }
+        .chatbot-footer button {
+            background-color: #ff69b4;
+            color: #fff;
+            border: none;
+            padding: 8px 20px;
+            margin-left: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            outline: none;
+        }
+        .chatbot-footer button:hover {
+            background-color: #333;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="logo">GlamAura</div>
+        <nav class="nav">
+            <a href="#home">Home</a>
+            <a href="#products">Products</a>
+            <a href="#about">About</a>
+            <a href="#blog">Blog</a>
+            <a href="#contact">Contact</a>
+        </nav>
+        <div class="search-bar">
+            <input type="text" placeholder="Search...">
+            <div class="cart-icon">
+                <img src="https://img.icons8.com/material-outlined/24/ffffff/shopping-cart--v1.png" alt="Cart">
+                <span class="badge">0</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <div class="hero" id="home">
+        <div class="hero-text">
+            <h1>Welcome to GlamAura</h1>
+            <p>Your ultimate destination for premium makeup products</p>
+            <a href="#products" class="cta-button">Explore Products</a>
+        </div>
+        <img src="C:\Users\Anjelo Sherin\OneDrive\Desktop\Collage\internship\backgrooundddddddddd make up.jpg" alt="Makeup Products">
+    </div>
+
+    <!-- Featured Products Section -->
+    <section class="section featured-products" id="products">
+        <h2>Featured Products</h2>
+        <div class="product-carousel">
+            <div class="product">
+                <img src="C:\Users\Anjelo Sherin\OneDrive\Desktop\Collage\internship\mascare.jpg" alt="Maybelline Lash Sensational Sky High">
+                <h3>Maybelline Lash Sensational Sky High</h3>
+                <p>MRP ₹639 </p>
+                <button>Add to Cart</button>
+            </div>
+            <div class="product">
+                <img src="C:\Users\Anjelo Sherin\OneDrive\Desktop\Collage\internship\blush.jpeg" alt="Rare Beauty Liquid Blush">
+                <h3>Rare Beauty Liquid Blush</h3>
+                <p>MRP ₹10,000</p>
+                <button>Add to Cart</button>
+            </div>
+            <div class="product">
+                <img src="C:\Users\Anjelo Sherin\OneDrive\Desktop\Collage\internship\mini soft.avif" alt="Product 3">
+                <h3>Mini Soft Pinch Liquid Blush • 3.2ml</h3>
+                <p>MRP ₹1,600</p>
+                <button>Add to Cart</button>
+            </div>
+            <div class="product">
+                <img src="C:\Users\Anjelo Sherin\OneDrive\Desktop\Collage\internship\make up forever.avif" alt="Product 4">
+                <h3>MAKE UP FOR EVER
+                    HD Skin Foundation</h3>
+                <p>MRP ₹3,600 (10%)</p>
+                <button>Add to Cart</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section class="section categories">
+        <h2>Shop by Categories</h2>
+        <div class="category-grid">
+            <div class="category">
+                <img src="C:\Users\Anjelo Sherin\OneDrive\Desktop\Collage\internship\nails.jpg" alt="Category 1">
+                <h3>NAILS </h3>
+            </div>
+            <div class="category">
+                <img src="C:\Users\Anjelo Sherin\OneDrive\Desktop\Collage\internship\Skincare.jpg" alt="Category 2">
+                <h3>SKINCARE</h3>
+            </div>
+            <div class="category">
+                <img src="C:\Users\Anjelo Sherin\OneDrive\Desktop\Collage\internship\Hair care.jpg" alt="Category 3">
+                <h3>HAIRCARE</h3>
+            </div>
+            <div class="category">
+                <img src="C:\Users\Anjelo Sherin\OneDrive\Desktop\Collage\internship\PERFUME.jpg" alt="Category 4">
+                <h3>PERFUME</h3>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="section testimonials">
+        <h2>What Our Customers Say</h2>
+        <div class="testimonial">
+            <img src="C:\Users\Anjelo Sherin\OneDrive\Desktop\Collage\internship\PFP.jpg" alt="Customer 1">
+            <p>"Great products and excellent service! Highly recommend GlamAura."</p>
+            <p>- Alice</p>
+        </div>
+        <div class="testimonial">
+            <img src="C:\Users\Anjelo Sherin\OneDrive\Desktop\Collage\internship\pfpppppppppp.jpg" alt="Customer 2">
+            <p>"Fast shipping and top-notch quality. Will buy again!"</p>
+            <p>- Grace</p>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="section about" id="about">
+        <h2>About Us</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et tincidunt dui, a efficitur est. Donec vel dui ut neque fermentum ultricies. Morbi lacinia sed ex at ullamcorper. Integer scelerisque luctus dui vitae fermentum. Nullam eu ligula eu orci mollis tincidunt id vitae libero. Mauris sit amet nulla vel mi iaculis euismod eget in ante. Curabitur lacinia mauris in justo fringilla, nec iaculis ex placerat.</p>
+    </section>
+
+    <!-- Blog Section -->
+    <section class="section blog" id="blog">
+        <h2>Latest from Our Blog</h2>
+        <div class="blog-post">
+            <img src="C:\Users\Anjelo Sherin\OneDrive\Desktop\Collage\internship\PFP.jpg" alt="Blog Post 1">
+            <div>
+                <h3>Blog Post Title 1</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris vel dolor sed nulla facilisis accumsan.</p>
+            </div>
+        </div>
+        <div class="blog-post">
+            <img src="C:\Users\Anjelo Sherin\OneDrive\Desktop\Collage\internship\pfpppppppppp.jpg" alt="Blog Post 2">
+            <div>
+                <h3>Blog Post Title 2</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris vel dolor sed nulla facilisis accumsan.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Subscription Section -->
+    <section class="section subscription">
+        <h2>Subscribe to Our Newsletter</h2>
+        <p>Stay updated with the latest products and offers. Enter your email below:</p>
+        <input type="email" placeholder="Enter your email">
+        <button>Subscribe</button>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="social-icons">
+            <a href="#"><img src="https://img.icons8.com/ios/452/facebook--v1.png" alt="Facebook"></a>
+            <a href="#"><img src="https://img.icons8.com/ios/452/instagram-new--v1.png" alt="Instagram"></a>
+            <a href="#"><img src="https://img.icons8.com/ios/452/twitter--v1.png" alt="Twitter"></a>
+        </div>
+        <p>&copy; 2024 GlamAura. All rights reserved.</p>
+    </footer>
+
+    <!-- Chatbot Icon -->
+    <div class="chatbot" id="chatbot">
+        <img src="https://img.icons8.com/ios/452/chat--v1.png" alt="Chatbot">
+    </div>
+
+<!-- Chatbot Popup -->
+<div class="chatbot-popup" id="chatbotPopup">
+    <div class="chatbot-header">
+        Chat with us
+        <button class="close-button" id="closeButton">&times;</button>
+    </div>
+    <div class="chatbot-body" id="chatbotBody">
+        <!-- Initial welcome message -->
+    </div>
+    <div class="chatbot-footer">
+        <input type="text" id="chatbotInput" placeholder="Type your message...">
+        <button id="sendButton">Send</button>
+    </div>
+</div>
+
+<!-- Script for chatbot functionality -->
+<script>
+    // DOM elements
+    const chatbotButton = document.querySelector('.chatbot');
+    const chatbotPopup = document.getElementById('chatbotPopup');
+    const chatbotInput = document.querySelector('.chatbot-footer input');
+    const sendButton = document.querySelector('.chatbot-footer button');
+    const chatbotBody = document.querySelector('.chatbot-body');
+    const closeButton = document.querySelector('.chatbot-header button');
+
+    // Flag to track if welcome message has been displayed
+    let welcomeMessageDisplayed = false;
+
+    // User's name (replace with actual username if signed up)
+    let userName = 'User'; // Replace with actual user name if signed up
+
+    // Event listeners
+    chatbotButton.addEventListener('click', () => {
+        chatbotPopup.style.display = 'flex';
+        if (!welcomeMessageDisplayed) {
+            displayMessage("Hi there! How can I help you today?", 'bot');
+            welcomeMessageDisplayed = true;
+        }
+    });
+
+    closeButton.addEventListener('click', () => {
+        chatbotPopup.style.display = 'none';
+    });
+
+    sendButton.addEventListener('click', () => {
+        sendMessage();
+    });
+
+    chatbotInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            sendMessage();
+        }
+    });
+
+    // Function to send user message and receive bot response
+    function sendMessage() {
+        let userMessage = chatbotInput.value.trim().toLowerCase();
+        if (userMessage === '') return;
+
+        // Display user message with user's name or 'User'
+        let userDisplayName = userName ? userName : 'User';
+        displayMessage(`${userDisplayName}: ${userMessage}`, 'user');
+
+        // Simulate bot typing delay and then display response
+        setTimeout(() => {
+            let botResponse = getBotResponse(userMessage);
+            displayMessage(`Glam bot: ${botResponse}`, 'bot');
+        }, 500);
+
+        // Clear input field
+        chatbotInput.value = '';
+    }
+
+    // Function to display message in the chatbot
+    function displayMessage(message, sender) {
+        let messageElement = document.createElement('div');
+        messageElement.className = `message ${sender}`;
+        messageElement.innerText = message;
+        chatbotBody.appendChild(messageElement);
+        chatbotBody.scrollTop = chatbotBody.scrollHeight;
+    }
+
+    // Function to get bot response (placeholder for actual bot logic)
+    function getBotResponse(userMessage) {
+        // Placeholder responses for demonstration
+        const responses = {
+            "hello": "Hi there! How can I help you today?",
+            "help": "Sure, I'm here to help! What do you need assistance with?",
+            "products": "We have a wide range of beauty products. What are you looking for specifically?",
+            // Add more responses as needed
+            "hi": "hi<3",
+            "lip products": "Some popular lip products currently are liquid lipsticks known for their long-lasting wear, tinted lip balms for a natural look with hydration, and lip glosses for a shiny finish that enhances lips.",
+            "red lipstick": "When choosing a red lipstick, consider your undertone. If you have warm undertones, opt for reds with orange or coral hues. For cool undertones, go for reds with blue or pink undertones. Neutral undertones can generally wear both warm and cool reds.",
+            "choose": "When choosing a red lipstick, consider your undertone. If you have warm undertones, opt for reds with orange or coral hues. For cool undertones, go for reds with blue or pink undertones. Neutral undertones can generally wear both warm and cool reds.",
+            "lip gloss": "Lip gloss adds shine and sometimes a hint of color to lips, while lip balm primarily moisturizes and soothes dry lips. Lip glosses are often more lightweight and glossy, whereas lip balms tend to have a thicker consistency for hydration.",
+            "lip balm": "Lip gloss adds shine and sometimes a hint of color to lips, while lip balm primarily moisturizes and soothes dry lips. Lip glosses are often more lightweight and glossy, whereas lip balms tend to have a thicker consistency for hydration.",
+            "fuller lips": "To make lips appear fuller, use a lip liner slightly outside your natural lip line and fill in with a matching lipstick shade. Applying a dab of highlighter or gloss to the center of your lips can also create a plumping effect by catching light.",
+            "plump": "To make lips appear fuller, use a lip liner slightly outside your natural lip line and fill in with a matching lipstick shade. Applying a dab of highlighter or gloss to the center of your lips can also create a plumping effect by catching light.",
+            "everyday lip color": "A good everyday lip color for beginners is a nude or MLBB (my lips but better) shade that closely matches your natural lip color. This provides a subtle enhancement without being too bold or high maintenance.",
+            "beginners": "A good everyday lip color for beginners is a nude or MLBB (my lips but better) shade that closely matches your natural lip color. This provides a subtle enhancement without being too bold or high maintenance.",
+            "lipstick bleeding": "To prevent lipstick from bleeding, start with a lip liner to outline and fill in your lips. Opt for long-wearing or matte lipsticks that are less likely to feather. You can also apply a small amount of concealer around the lips to create a barrier.",
+            "prevent": "To prevent lipstick from bleeding, start with a lip liner to outline and fill in your lips. Opt for long-wearing or matte lipsticks that are less likely to feather. You can also apply a small amount of concealer around the lips to create a barrier.",
+            "lip gloss over matte": "Yes, you can wear lip gloss over matte lipstick for a glossy finish. Apply the gloss sparingly to the center of your lips and blend outwards for a balanced look that doesn’t compromise the matte effect too much.",
+            "lipstick over matte": "Yes, you can wear lip gloss over matte lipstick for a glossy finish. Apply the gloss sparingly to the center of your lips and blend outwards for a balanced look that doesn’t compromise the matte effect too much.",
+            "remove long-wearing lipstick": "To remove long-wearing lipstick, use an oil-based makeup remover or micellar water on a cotton pad. Press it gently against your lips for a few seconds to break down the lipstick, then wipe off. Repeat if needed until all lipstick residue is gone.",
+            "best lip product": "The best lip product for dry lips is a hydrating lip balm with ingredients like shea butter, coconut oil, or hyaluronic acid. Look for products that provide long-lasting moisture and protect lips from further drying out.",
+            "dry lips": "The best lip product for dry lips is a hydrating lip balm with ingredients like shea butter, coconut oil, or hyaluronic acid. Look for products that provide long-lasting moisture and protect lips from further drying out.",
+            "lipstick last longer": "To make your lipstick last longer, start with exfoliated and moisturized lips. Apply a lip primer or concealer as a base, then layer your lipstick with a lip brush for precision. Blot with a tissue and set with translucent powder for added longevity.",
+            "make lipstick last": "To make your lipstick last longer, start with exfoliated and moisturized lips. Apply a lip primer or concealer as a base, then layer your lipstick with a lip brush for precision. Blot with a tissue and set with translucent powder for added longevity.",
+            "eyebrows": "Start by brushing your eyebrows upwards with a spoolie brush. Using a brow pencil or powder that matches your hair color, fill in any sparse areas with light, feathery strokes. Finish by setting brows in place with a clear brow gel.",
+            "eyebrow shape": "Start by brushing your eyebrows upwards with a spoolie brush. Using a brow pencil or powder that matches your hair color, fill in any sparse areas with light, feathery strokes. Finish by setting brows in place with a clear brow gel.",
+            "natural-looking eyebrows": "Start by brushing your eyebrows upwards with a spoolie brush. Using a brow pencil or powder that matches your hair color, fill in any sparse areas with light, feathery strokes. Finish by setting brows in place with a clear brow gel."
+        };
+        return responses[userMessage] || "Sorry, I didn't understand that. Can you please rephrase?";
+    }
+
+    // Display initial welcome message from the bot if not already displayed
+    if (!welcomeMessageDisplayed) {
+        displayMessage("Hi there! How can I help you today?", 'bot');
+        welcomeMessageDisplayed = true;
+    }
+</script>

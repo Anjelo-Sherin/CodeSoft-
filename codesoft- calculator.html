@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Pink Calculator</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+        .calculator {
+            background-color: #ff69b4;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+        .display {
+            background-color: #ffffff;
+            border-radius: 10px;
+            padding: 10px;
+            font-size: 2em;
+            text-align: right;
+            margin-bottom: 20px;
+            height: 60px;
+            overflow: hidden;
+        }
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+        button {
+            background-color: #ffb6c1;
+            border: none;
+            border-radius: 10px;
+            padding: 20px;
+            font-size: 1.5em;
+            cursor: pointer;
+            box-shadow: 0 4px #999;
+        }
+        button:active {
+            box-shadow: 0 2px #666;
+            transform: translateY(4px);
+        }
+        .calculation-display {
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 5px;
+            font-size: 1em;
+            text-align: right;
+            margin-bottom: 10px;
+            color: #888;
+            height: 30px;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <div class="calculation-display" id="calculationDisplay"></div>
+        <div class="display" id="display">0</div>
+        <div class="buttons">
+            <button onclick="clearDisplay()">C</button>
+            <button onclick="deleteLast()">DEL</button>
+            <button onclick="setOperation('/')">/</button>
+            <button onclick="setOperation('*')">*</button>
+            <button onclick="appendNumber('7')">7</button>
+            <button onclick="appendNumber('8')">8</button>
+            <button onclick="appendNumber('9')">9</button>
+            <button onclick="setOperation('-')">-</button>
+            <button onclick="appendNumber('4')">4</button>
+            <button onclick="appendNumber('5')">5</button>
+            <button onclick="appendNumber('6')">6</button>
+            <button onclick="setOperation('+')">+</button>
+            <button onclick="appendNumber('1')">1</button>
+            <button onclick="appendNumber('2')">2</button>
+            <button onclick="appendNumber('3')">3</button>
+            <button onclick="appendNumber('.')">.</button>
+            <button onclick="calculate()" style="grid-column: span 2;">=</button>
+            <button onclick="appendNumber('0')" style="grid-column: span 2;">0</button>
+        </div>
+    </div>
+
+    <script>
+        let display = document.getElementById('display');
+        let calculationDisplay = document.getElementById('calculationDisplay');
+        let currentInput = '';
+        let firstOperand = null;
+        let secondOperand = null;
+        let currentOperation = null;
+        let shouldResetDisplay = false;
+
+        function appendNumber(number) {
+            if (shouldResetDisplay) {
+                currentInput = '';
+                shouldResetDisplay = false;
+            }
+            if (currentInput.length < 10) {
+                currentInput += number;
+                display.textContent = currentInput;
+            }
+            updateCalculationDisplay();
+        }
+
+        function clearDisplay() {
+            currentInput = '';
+            firstOperand = null;
+            secondOperand = null;
+            currentOperation = null;
+            display.textContent = '0';
+            calculationDisplay.textContent = '';
+            shouldResetDisplay = false;
+        }
+
+        function deleteLast() {
+            if (currentInput !== '') {
+                currentInput = currentInput.slice(0, -1);
+                display.textContent = currentInput || '0';
+            }
+            updateCalculationDisplay();
+        }
+
+        function setOperation(operation) {
+            if (currentInput !== '') {
+                if (firstOperand === null) {
+                    firstOperand = parseFloat(currentInput);
+                } else if (currentOperation) {
+                    secondOperand = parseFloat(currentInput);
+                    firstOperand = operate(firstOperand, secondOperand, currentOperation);
+                    display.textContent = firstOperand;
+                }
+                currentOperation = operation;
+                currentInput = '';
+                shouldResetDisplay = true;
+            }
+            updateCalculationDisplay();
+        }
+
+        function calculate() {
+            if (currentInput !== '' && currentOperation !== null) {
+                secondOperand = parseFloat(currentInput);
+                display.textContent = operate(firstOperand, secondOperand, currentOperation);
+                firstOperand = parseFloat(display.textContent);
+                secondOperand = null;
+                currentOperation = null;
+                currentInput = '';
+                shouldResetDisplay = true;
+                calculationDisplay.textContent = '';
+            }
+        }
+
+        function operate(first, second, operation) {
+            if (operation === '+') return first + second;
+            if (operation === '-') return first - second;
+            if (operation === '*') return first * second;
+            if (operation === '/') return first / second;
+        }
+
+        function updateCalculationDisplay() {
+            calculationDisplay.textContent = `${firstOperand !== null ? firstOperand : ''} ${currentOperation !== null ? currentOperation : ''} ${currentInput}`;
+        }
+    </script>
+</body>
+</html>
